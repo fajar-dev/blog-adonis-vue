@@ -58,6 +58,7 @@
     "@adonisjs/auth": "^8.2.3",
     "@adonisjs/core": "^5.9.0",
     "@adonisjs/lucid": "^18.4.2",
+    "@adonisjs/lucid-slugify": "^2.2.1",
     "@adonisjs/mail": "^8.2.1",
     "@adonisjs/repl": "^3.1.11",
     "@adonisjs/view": "^6.2.0",

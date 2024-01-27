@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, beforeCreate, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { slugify } from '@ioc:Adonis/Addons/LucidSlugify'
 import uuid from 'uuid-wand'
 import Category from './Category'
 import User from './User'
@@ -14,6 +15,11 @@ export default class Post extends BaseModel {
   public id: string
 
   @column()
+  @slugify({
+    strategy: 'shortId',
+    fields: ['title'],
+    allowUpdates: true,
+  })
   public slug: string
 
   @column()
@@ -41,7 +47,7 @@ export default class Post extends BaseModel {
   public metaDescription: string
 
   @column()
-  public tags: JSON
+  public tags: JSON | string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

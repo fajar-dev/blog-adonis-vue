@@ -22,9 +22,9 @@ export default class CategoriesController {
     })
     const payload = await request.validate({ schema: newRoleSchema })
 
-    const role = new Category()
-    role.name = payload.name
-    const data = await role.save()
+    const category = new Category()
+    category.name = payload.name
+    const data = await category.save()
     return ApiResponse.created(response, data, 'Category created successfully')
   }
 
@@ -34,17 +34,17 @@ export default class CategoriesController {
     })
     const payload = await request.validate({ schema: updateRoleSchema })
 
-    const role = await Category.find(params.id)
-    if (!role) return ApiResponse.badRequest(response, 'No data to update.')
-    role.name = payload.name
-    const data = await role.save()
+    const category = await Category.find(params.id)
+    if (!category) return ApiResponse.badRequest(response, 'No data to update.')
+    category.name = payload.name
+    const data = await category.save()
     return ApiResponse.ok(response, data, 'Category updated successfully')
   }
 
   public async destroy({ response, params }: HttpContextContract) {
-    const role = await Category.find(params.id)
-    if (!role) return ApiResponse.badRequest(response, 'No data to delete.')
-    const data = await role.delete()
+    const category = await Category.find(params.id)
+    if (!category) return ApiResponse.badRequest(response, 'No data to delete.')
+    const data = await category.delete()
     return ApiResponse.ok(response, data, 'Category deleted successfully')
   }
 }
