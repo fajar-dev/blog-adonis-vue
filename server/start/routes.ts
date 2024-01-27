@@ -69,5 +69,10 @@ Route.group(() => {
         'destroy',
       ])
     }).middleware('auth')
+
+    Route.group(() => {
+      Route.get('/', 'PostsController.index')
+      Route.get('/:id', 'PostsController.show')
+    }).prefix('post')
   }).prefix('/v1')
 }).prefix('/api')

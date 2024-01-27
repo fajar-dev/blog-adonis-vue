@@ -4,7 +4,7 @@ import ApiResponse from 'App/Helpers/ApiResponse'
 import User from 'App/Models/User'
 import Database from '@ioc:Adonis/Lucid/Database'
 import Mail from '@ioc:Adonis/Addons/Mail'
-import { v4 as uuid } from 'uuid'
+import uuid from 'uuid-wand'
 
 export default class AuthController {
   public async register({ request, response }: HttpContextContract) {
@@ -71,7 +71,7 @@ export default class AuthController {
     const user = await User.findBy('email', payload.email)
     if (!user) return ApiResponse.badRequest(response, 'User not found')
 
-    const token = uuid()
+    const token = uuid.v4()
 
     await Database.insertQuery()
       .table('password_reset_tokens')
