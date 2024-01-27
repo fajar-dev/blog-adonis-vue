@@ -20,11 +20,6 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-import authRoutes from './routes/api/v1/auth/auth'
-import roleRoutes from './routes/api/v1/role/role'
-import userRouter from './routes/api/v1/user/user'
-import profileRouter from './routes/api/v1/profile/profile'
-
 Route.get('/', async () => {
   return { hello: 'world' }
 })
@@ -32,19 +27,47 @@ Route.get('/', async () => {
 Route.group(() => {
   Route.group(() => {
     Route.group(() => {
-      authRoutes()
-    })
+      Route.post('/register', 'AuthController.register')
+      Route.post('/login', 'AuthController.login')
+      Route.post('/logout', 'AuthController.logout').middleware('auth')
+      Route.get('/me', 'AuthController.me').middleware('auth')
+      Route.post('/forget', 'AuthController.forget')
+      Route.post('/reset', 'AuthController.reset')
+    }).prefix('/auth')
 
     Route.group(() => {
-      roleRoutes()
+      Route.resource('role', 'RolesController').only([
+        'index',
+        'show',
+        'store',
+        'update',
+        'destroy',
+      ])
     }).middleware('auth')
 
     Route.group(() => {
-      userRouter()
+      Route.resource('user', 'UsersController').only([
+        'index',
+        'show',
+        'store',
+        'update',
+        'destroy',
+      ])
     }).middleware('auth')
 
     Route.group(() => {
-      profileRouter()
+      Route.put('/profile', 'ProfilesController.update')
+      Route.put('/profile/change-password', 'ProfilesController.changePassword')
+    }).middleware('auth')
+
+    Route.group(() => {
+      Route.resource('category', 'CategoriesController').only([
+        'index',
+        'show',
+        'store',
+        'update',
+        'destroy',
+      ])
     }).middleware('auth')
   }).prefix('/v1')
 }).prefix('/api')

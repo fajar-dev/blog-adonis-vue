@@ -8,13 +8,13 @@ import {
   beforeCreate,
   belongsTo,
 } from '@ioc:Adonis/Lucid/Orm'
-import { v4 as uuid } from 'uuid'
+import uuid from 'uuid-wand'
 import Role from './Role'
 
 export default class User extends BaseModel {
   @beforeCreate()
   public static async createUUID(model: User) {
-    model.id = uuid()
+    model.id = uuid.v4()
   }
 
   @column({ isPrimary: true })
