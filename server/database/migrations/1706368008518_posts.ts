@@ -26,6 +26,7 @@ export default class extends BaseSchema {
       table.string('image').notNullable()
       table.string('meta_description').notNullable()
       table.json('tags').notNullable()
+      table.boolean('is_publish').defaultTo(true).notNullable()
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

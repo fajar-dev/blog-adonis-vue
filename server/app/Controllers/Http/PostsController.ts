@@ -12,6 +12,7 @@ export default class PostsController {
     const data = await Post.query()
       .preload('category')
       .preload('user')
+      .where('isPublish', true)
       .where('title', 'LIKE', `%${q}%`)
       .paginate(page, limit)
     return ApiResponse.ok(response, data, 'Posts retrieved successfully')
@@ -19,6 +20,7 @@ export default class PostsController {
 
   public async show({ params, response }: HttpContextContract) {
     const data = await Post.query()
+      .where('isPublish', true)
       .where('id', params.id)
       .preload('category')
       .preload('user')
@@ -37,6 +39,7 @@ export default class PostsController {
         extnames: ['jpg', 'gif', 'png'],
       }),
       metaDescription: schema.string(),
+      isPublish: schema.boolean(),
       tags: schema.string(),
     })
     const payload = await request.validate({ schema: newUserSchema })
@@ -52,6 +55,7 @@ export default class PostsController {
     post.image = payload.image?.clientName
     post.metaDescription = payload.metaDescription
     post.tags = payload.tags
+    post.isPublish = payload.isPublish
     const data = await post.save()
     return ApiResponse.created(response, data, 'post created successfully')
   }
@@ -68,6 +72,7 @@ export default class PostsController {
       }),
       metaDescription: schema.string(),
       tags: schema.string(),
+      isPublish: schema.boolean(),
     })
     const payload = await request.validate({ schema: updateUserSchema })
 
@@ -83,6 +88,7 @@ export default class PostsController {
     post.categoryId = payload.categoryId
     post.metaDescription = payload.metaDescription
     post.tags = payload.tags
+    post.isPublish = payload.isPublish
     if (payload.image) {
       post.image = payload.image?.clientName
     }
