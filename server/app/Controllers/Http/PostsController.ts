@@ -14,6 +14,7 @@ export default class PostsController {
       .preload('user')
       .where('isPublish', true)
       .where('title', 'LIKE', `%${q}%`)
+      .orderBy('posts.created_at', 'desc')
       .paginate(page, limit)
     return ApiResponse.ok(response, data, 'Posts retrieved successfully')
   }

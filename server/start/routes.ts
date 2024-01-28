@@ -77,5 +77,13 @@ Route.group(() => {
       Route.put('/:id', 'PostsController.update').middleware('auth')
       Route.delete('/:id', 'PostsController.destroy').middleware('auth')
     }).prefix('post')
+
+    Route.group(() => {
+      Route.get('/', 'commentsController.index').middleware('auth')
+      Route.get('/:id', 'commentsController.show').middleware('auth')
+      Route.get('/post/:postId', 'commentsController.ReadByPost')
+      Route.post('/', 'commentsController.store').middleware('auth')
+      Route.delete('/:id', 'commentsController.destroy').middleware('auth')
+    }).prefix('comment')
   }).prefix('/v1')
 }).prefix('/api')
