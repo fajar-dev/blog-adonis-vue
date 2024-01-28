@@ -74,6 +74,7 @@ Route.group(() => {
       Route.get('/', 'PostsController.index')
       Route.get('/:id', 'PostsController.show')
       Route.post('/', 'PostsController.store').middleware('auth')
+      Route.put('/:id', 'PostsController.update').middleware('auth')
       Route.delete('/:id', 'PostsController.destroy').middleware('auth')
     }).prefix('post')
   }).prefix('/v1')
