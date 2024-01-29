@@ -6,17 +6,17 @@ const router = createRouter({
     {
       path: '/',
       name: 'user.index',
-      component: () => import('@/views/user/Index.vue')
+      component: () => import('@/views/Index.vue')
     },
     {
       path: '/create',
       name: 'user.create',
-      component: () => import('@/views/user/Create.vue')
+      component: () => import('@/views/post/Create.vue')
     },
     {
-      path: '/edit/:id',
-      name: 'user.edit',
-      component: () => import('@/views/user/Edit.vue')
+      path: '/post/:slug',
+      name: 'post.show',
+      component: () => import('@/views/post/show.vue')
     },
   ]
 })
