@@ -21,8 +21,17 @@ export default class PostsController {
 
   public async show({ params, response }: HttpContextContract) {
     const data = await Post.query()
-      .where('isPublish', true)
       .where('id', params.id)
+      .preload('category')
+      .preload('user')
+      .first()
+    return ApiResponse.ok(response, data, 'post retrieved successfully')
+  }
+
+  public async showBySlug({ params, response }: HttpContextContract) {
+    const data = await Post.query()
+      .where('isPublish', true)
+      .where('slug', params.slug)
       .preload('category')
       .preload('user')
       .first()

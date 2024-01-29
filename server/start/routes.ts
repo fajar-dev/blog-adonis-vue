@@ -72,7 +72,8 @@ Route.group(() => {
 
     Route.group(() => {
       Route.get('/', 'PostsController.index')
-      Route.get('/:id', 'PostsController.show')
+      Route.get('/:id', 'PostsController.show').middleware('auth')
+      Route.get('/:slug', 'PostsController.showBySlug')
       Route.post('/', 'PostsController.store').middleware('auth')
       Route.put('/:id', 'PostsController.update').middleware('auth')
       Route.delete('/:id', 'PostsController.destroy').middleware('auth')
